@@ -16,6 +16,17 @@ for x = 1:length(a)
         pdf_2(y,x) = bet * ( 1 - a(x)^2 ) * ( 0.05 + b(y)^4 + (a(x)^2) * (b(y)^2) /2 );
     end
 end
+
+%Marginal PDF for A in T1 cells
+for x = 1:length(a)
+    mPDFa(x) = sum(pdf_1(:,x));
+end
+%Marginal PDF for B in T2 cells
+for y = 1:length(b)
+    mPDFb(y) = sum(pdf_2(y,:));
+end
+
+
 %plot first pdf 
 subplot(1,2,1);
 surf(a,b,pdf_1);
@@ -30,3 +41,16 @@ title('T2 pdf');
 xlabel('a');
 ylabel('b');
 hold on
+
+%plot marginals
+figure;
+subplot(1,2,1);
+plot(a,mPDFa);
+xlabel('a');
+ylabel('T1');
+title('Marginal PDF of A for T1 cells');
+subplot(1,2,2);
+plot(b,mPDFb);
+xlabel('b');
+ylabel('T2');
+title('Marginal PDF of B for T2 cells');
